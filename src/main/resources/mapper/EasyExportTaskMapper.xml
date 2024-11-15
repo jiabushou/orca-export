@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.huge.data.mapper.EasyExportTaskMapper">
+  <resultMap id="BaseResultMap" type="org.huge.data.domain.EasyExportTask">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="db_function_method" jdbcType="VARCHAR" property="dbFunctionMethod" />
+    <result column="db_function_params" jdbcType="VARCHAR" property="dbFunctionParams" />
+    <result column="db_results_process" jdbcType="VARCHAR" property="dbResultsProcess" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="download_url_processor_class_name" jdbcType="VARCHAR" property="downloadUrlProcessorClassName" />
+    <result column="download_url_processor_params" jdbcType="VARCHAR" property="downloadUrlProcessorParams" />
+    <result column="trigger_executed_time" jdbcType="TIMESTAMP" property="triggerExecutedTime" />
+    <result column="finished_time" jdbcType="TIMESTAMP" property="finishedTime" />
+    <result column="upload_class_name" jdbcType="VARCHAR" property="uploadClassName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, status, db_function_method, db_function_params, db_results_process, file_name, 
+    download_url_processor_class_name, download_url_processor_params, trigger_executed_time, 
+    finished_time, upload_class_name
+  </sql>
+  <select id="selectByExample" parameterType="org.huge.data.domain.EasyExportTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.huge.data.domain.EasyExportTaskExample">
+    delete from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.huge.data.domain.EasyExportTask">
+    insert into easy_export_task (id, status, db_function_method, 
+      db_function_params, db_results_process, file_name, 
+      download_url_processor_class_name, download_url_processor_params, 
+      trigger_executed_time, finished_time, 
+      upload_class_name)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{dbFunctionMethod,jdbcType=VARCHAR}, 
+      #{dbFunctionParams,jdbcType=VARCHAR}, #{dbResultsProcess,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{downloadUrlProcessorClassName,jdbcType=VARCHAR}, #{downloadUrlProcessorParams,jdbcType=VARCHAR}, 
+      #{triggerExecutedTime,jdbcType=TIMESTAMP}, #{finishedTime,jdbcType=TIMESTAMP}, 
+      #{uploadClassName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.huge.data.domain.EasyExportTask">
+    insert into easy_export_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method,
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params,
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name,
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params,
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time,
+      </if>
+      <if test="finishedTime != null">
+        finished_time,
+      </if>
+      <if test="uploadClassName != null">
+        upload_class_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadClassName != null">
+        #{uploadClassName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.huge.data.domain.EasyExportTaskExample" resultType="java.lang.Long">
+    select count(*) from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update easy_export_task
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.dbFunctionMethod != null">
+        db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbFunctionParams != null">
+        db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbResultsProcess != null">
+        db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorParams != null">
+        download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerExecutedTime != null">
+        trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishedTime != null">
+        finished_time = #{record.finishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uploadClassName != null">
+        upload_class_name = #{record.uploadClassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update easy_export_task
+    set id = #{record.id,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{record.finishedTime,jdbcType=TIMESTAMP},
+      upload_class_name = #{record.uploadClassName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.huge.data.domain.EasyExportTask">
+    update easy_export_task
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        finished_time = #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadClassName != null">
+        upload_class_name = #{uploadClassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.huge.data.domain.EasyExportTask">
+    update easy_export_task
+    set status = #{status,jdbcType=INTEGER},
+      db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{finishedTime,jdbcType=TIMESTAMP},
+      upload_class_name = #{uploadClassName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="org.huge.data.domain.EasyExportTask">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="db_function_method" jdbcType="VARCHAR" property="dbFunctionMethod" />
+    <result column="db_function_params" jdbcType="VARCHAR" property="dbFunctionParams" />
+    <result column="db_results_process" jdbcType="VARCHAR" property="dbResultsProcess" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="download_url_processor_class_name" jdbcType="VARCHAR" property="downloadUrlProcessorClassName" />
+    <result column="download_url_processor_params" jdbcType="VARCHAR" property="downloadUrlProcessorParams" />
+    <result column="trigger_executed_time" jdbcType="TIMESTAMP" property="triggerExecutedTime" />
+    <result column="finished_time" jdbcType="TIMESTAMP" property="finishedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, status, db_function_method, db_function_params, db_results_process, file_name, 
+    download_url_processor_class_name, download_url_processor_params, trigger_executed_time, 
+    finished_time
+  </sql>
+  <select id="selectByExample" parameterType="org.huge.data.domain.EasyExportTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.huge.data.domain.EasyExportTaskExample">
+    delete from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.huge.data.domain.EasyExportTask">
+    insert into easy_export_task (id, status, db_function_method, 
+      db_function_params, db_results_process, file_name, 
+      download_url_processor_class_name, download_url_processor_params, 
+      trigger_executed_time, finished_time)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{dbFunctionMethod,jdbcType=VARCHAR}, 
+      #{dbFunctionParams,jdbcType=VARCHAR}, #{dbResultsProcess,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{downloadUrlProcessorClassName,jdbcType=VARCHAR}, #{downloadUrlProcessorParams,jdbcType=VARCHAR}, 
+      #{triggerExecutedTime,jdbcType=TIMESTAMP}, #{finishedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.huge.data.domain.EasyExportTask">
+    insert into easy_export_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method,
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params,
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name,
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params,
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time,
+      </if>
+      <if test="finishedTime != null">
+        finished_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.huge.data.domain.EasyExportTaskExample" resultType="java.lang.Long">
+    select count(*) from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update easy_export_task
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.dbFunctionMethod != null">
+        db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbFunctionParams != null">
+        db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbResultsProcess != null">
+        db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorParams != null">
+        download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerExecutedTime != null">
+        trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishedTime != null">
+        finished_time = #{record.finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update easy_export_task
+    set id = #{record.id,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{record.finishedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.huge.data.domain.EasyExportTask">
+    update easy_export_task
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        finished_time = #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.huge.data.domain.EasyExportTask">
+    update easy_export_task
+    set status = #{status,jdbcType=INTEGER},
+      db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{finishedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="org.huge.data.domain.EasyExportTask">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="db_function_method" jdbcType="VARCHAR" property="dbFunctionMethod" />
+    <result column="db_function_params" jdbcType="VARCHAR" property="dbFunctionParams" />
+    <result column="db_results_process" jdbcType="VARCHAR" property="dbResultsProcess" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="download_url_processor_class_name" jdbcType="VARCHAR" property="downloadUrlProcessorClassName" />
+    <result column="download_url_processor_params" jdbcType="VARCHAR" property="downloadUrlProcessorParams" />
+    <result column="trigger_executed_time" jdbcType="TIMESTAMP" property="triggerExecutedTime" />
+    <result column="finished_time" jdbcType="TIMESTAMP" property="finishedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, status, db_function_method, db_function_params, db_results_process, file_name, 
+    download_url_processor_class_name, download_url_processor_params, trigger_executed_time, 
+    finished_time
+  </sql>
+  <select id="selectByExample" parameterType="com.ke.utopia.ocra.domain.EasyExportTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from easy_export_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ke.utopia.ocra.domain.EasyExportTaskExample">
+    delete from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ke.utopia.ocra.domain.EasyExportTask">
+    insert into easy_export_task (id, status, db_function_method, 
+      db_function_params, db_results_process, file_name, 
+      download_url_processor_class_name, download_url_processor_params, 
+      trigger_executed_time, finished_time)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{dbFunctionMethod,jdbcType=VARCHAR}, 
+      #{dbFunctionParams,jdbcType=VARCHAR}, #{dbResultsProcess,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{downloadUrlProcessorClassName,jdbcType=VARCHAR}, #{downloadUrlProcessorParams,jdbcType=VARCHAR}, 
+      #{triggerExecutedTime,jdbcType=TIMESTAMP}, #{finishedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ke.utopia.ocra.domain.EasyExportTask">
+    insert into easy_export_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method,
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params,
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name,
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params,
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time,
+      </if>
+      <if test="finishedTime != null">
+        finished_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ke.utopia.ocra.domain.EasyExportTaskExample" resultType="java.lang.Integer">
+    select count(*) from easy_export_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update easy_export_task
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.dbFunctionMethod != null">
+        db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbFunctionParams != null">
+        db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbResultsProcess != null">
+        db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrlProcessorParams != null">
+        download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerExecutedTime != null">
+        trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishedTime != null">
+        finished_time = #{record.finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update easy_export_task
+    set id = #{record.id,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      db_function_method = #{record.dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{record.dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{record.dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{record.downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{record.downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{record.triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{record.finishedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ke.utopia.ocra.domain.EasyExportTask">
+    update easy_export_task
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbFunctionMethod != null">
+        db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="dbFunctionParams != null">
+        db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dbResultsProcess != null">
+        db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorClassName != null">
+        download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrlProcessorParams != null">
+        download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerExecutedTime != null">
+        trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedTime != null">
+        finished_time = #{finishedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ke.utopia.ocra.domain.EasyExportTask">
+    update easy_export_task
+    set status = #{status,jdbcType=INTEGER},
+      db_function_method = #{dbFunctionMethod,jdbcType=VARCHAR},
+      db_function_params = #{dbFunctionParams,jdbcType=VARCHAR},
+      db_results_process = #{dbResultsProcess,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      download_url_processor_class_name = #{downloadUrlProcessorClassName,jdbcType=VARCHAR},
+      download_url_processor_params = #{downloadUrlProcessorParams,jdbcType=VARCHAR},
+      trigger_executed_time = #{triggerExecutedTime,jdbcType=TIMESTAMP},
+      finished_time = #{finishedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

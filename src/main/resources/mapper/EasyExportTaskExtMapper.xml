@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.huge.data.mapper.EasyExportTaskExtMapper">
+    <resultMap id="BaseResultMap" type="org.huge.data.domain.EasyExportTask" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="db_function_method" property="dbFunctionMethod" jdbcType="VARCHAR" />
+        <result column="db_function_params" property="dbFunctionParams" jdbcType="VARCHAR" />
+        <result column="db_results_process" property="dbResultsProcess" jdbcType="VARCHAR" />
+        <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+        <result column="download_url_processor_class_name" property="downloadUrlProcessorClassName" jdbcType="VARCHAR" />
+        <result column="download_url_processor_params" property="downloadUrlProcessorParams" jdbcType="VARCHAR" />
+        <result column="trigger_executed_time" property="triggerExecutedTime" jdbcType="TIMESTAMP" />
+        <result column="finished_time" property="finishedTime" jdbcType="TIMESTAMP" />
+        <result column="upload_class_name" jdbcType="VARCHAR" property="uploadClassName" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, status, db_function_method, db_function_params, db_results_process, file_name,
+    download_url_processor_class_name, download_url_processor_params, trigger_executed_time,
+    finished_time, upload_class_name
+    </sql>
+
+    <select id="selectExportTasksByStatusWithPageForUpdate" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM easy_export_task
+        WHERE
+            status IN
+            <foreach item="singleStatus" index="index" collection="exportTaskStatusList" open="(" close=")" separator=",">
+                #{singleStatus}
+            </foreach>
+        ORDER BY id ASC
+        LIMIT #{offsetSize}, #{limitSize}
+        FOR UPDATE
+    </select>
+</mapper>
