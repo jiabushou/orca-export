@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarProjectSettings">
+    <option name="additionalProperties">
+      <map>
+        <entry key="sonar.php.file.suffixes" value=".php,.phtml,.ini" />
+      </map>
+    </option>
+    <option name="bindingEnabled" value="true" />
+    <option name="projectKey" value="codeLink_Java" />
+    <option name="serverId" value="codeLink2" />
+  </component>
+</project>

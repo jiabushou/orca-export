@@ -27,9 +27,6 @@ public class AsyncExportTriggerHelper {
 
     @Transactional
     public List<Long> getAsyncExportTaskForHandle(Integer handleCount) {
-        List<EasyExportTask> asyncTasksForHandleTemp = orcaExportDao.selectExportTasksByStatus(
-                Collections.singletonList(ExportTaskStatusEnum.WAITING));
-
         // 1. 从数据库中取出待处理任务集合 用for update,添加行锁 开启事务
         List<EasyExportTask> asyncTasksForHandle = orcaExportDao.selectExportTasksByStatusWithPageForUpdate(
                 Collections.singletonList(ExportTaskStatusEnum.WAITING),
