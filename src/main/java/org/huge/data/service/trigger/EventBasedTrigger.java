@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.huge.data.config.AsyncExportThreadPool;
 import org.huge.data.config.OrcaExportProperties;
 import org.huge.data.dao.OrcaExportDao;
+import org.huge.data.domain.EasyExportTask;
+import org.huge.data.enums.ExportTaskStatusEnum;
 import org.huge.data.enums.OrcaExportResultCodeEnum;
 import org.huge.data.enums.TriggerSourceEnum;
 import org.huge.data.exception.OrcaExportException;
@@ -35,6 +37,7 @@ public class EventBasedTrigger {
     @Resource
     private OrcaExportProperties orcaExportProperties;
 
+
     /**
      * 触发异步导出任务管理器
      * @description 有两个触发来源,基于事件触发,基于时间触发
@@ -55,14 +58,24 @@ public class EventBasedTrigger {
         List<Long> asyncTaskIdsForHandle = asyncExportTriggerHelper.getAsyncExportTaskForHandle(handleCount);
 
         // 3. 将待处理任务集合提交到线程池中
-        asyncTaskIdsForHandle.forEach(asyncTaskIdForHandle ->
+        for (Long taskId : asyncTaskIdsForHandle) {
+            try {
                 AsyncExportThreadPool.asyncTaskManageThreadPoolExecutor.submit(
                         new AsyncExportTask(
-                                asyncTaskIdForHandle,
+                                taskId,
                                 orcaExportDao,
                                 sqlSessionFactory,
                                 redissonClient,
                                 orcaExportProperties,
-                                this)));
+                                this));
+            } catch (Exception e) {
+                log.error("触发异步导出任务管理器失败,任务ID:{},异常信息", taskId, e);
+                // 线程池拒绝任务提交,则将任务状态改为等待中
+                orcaExportDao.updateExportTaskById(EasyExportTask.builder()
+                        .id(taskId)
+                        .status(ExportTaskStatusEnum.WAITING.getStatus())
+                        .build());
+            }
+        }
     }
 }

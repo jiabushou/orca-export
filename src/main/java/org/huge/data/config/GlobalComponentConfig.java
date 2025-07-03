@@ -58,7 +58,7 @@ public class GlobalComponentConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-        configurer.setBasePackage("com.ke.utopia.ocra.mapper"); // 设置你的Mapper接口所在的包
+        configurer.setBasePackage("org.huge.data.mapper"); // 设置你的Mapper接口所在的包
         return configurer;
     }
 

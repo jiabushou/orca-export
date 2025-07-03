@@ -36,13 +36,7 @@ public class AsyncExportThreadPool {
         TimeUnit unit = TimeUnit.MILLISECONDS;
         BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(10);
         // 自定义拒绝策略 当拒绝时不要抛出异常
-        RejectedExecutionHandler handler = (r, executor) -> {
-            // 将r转成AsyncExportTask类型,获取任务id,打印日志
-            AsyncExportTask asyncExportTask = (AsyncExportTask) r;
-            Long taskId = asyncExportTask.getAsyncTaskId();
-            // 打印日志
-            log.info("任务ID:{},提交数据加工任务被线程池拒绝,等待定时任务处理", taskId);
-        };
+        RejectedExecutionHandler handler = new ThreadPoolExecutor.AbortPolicy();;
         asyncTaskManageThreadPoolExecutor = new ThreadPoolExecutor(
                 corePoolSize,
                 maximumPoolSize,
