@@ -1,4 +1,4 @@
-说明：组件目前仍有缺陷，由于异步导出需要处理存放位置,目前这块尚未完成（下述第3步），但内部实现可以借鉴
+说明：组件目前仍有缺陷，由于异步导出需要处理存放位置,目前这块尚未完成（下述第3步），但内部实现思路可以借鉴
 
 导出任务提交入口：org.huge.data.service.OrcaExportEntryService.submitExportTask
 全量配置信息位置：org.huge.data.config.OrcaExportProperties
