@@ -50,7 +50,6 @@ public class AsyncExportTriggerHelper {
                                               DBBatchProcessFunction<List<T>, List<R>> dbBatchProcessFunction,
                                               L queryParams,
                                               @NotNull String fileName,
-                                              AsyncUploadS3 asyncUploadS3,
                                               DownloadUrlProcessor downloadUrlProcessor,
                                               Map<String, String> manageDownloadUrlParams) {
         // 获取查询类的bean名称

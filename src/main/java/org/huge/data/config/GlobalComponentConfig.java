@@ -6,7 +6,6 @@ import org.huge.data.controller.OrcaExportController;
 import org.huge.data.dao.OrcaExportDao;
 import org.huge.data.dao.OrcaExportDaoImpl;
 import org.huge.data.service.OrcaExportEntryService;
-import org.huge.data.service.asynHelper.AsyncUploadS3;
 import org.huge.data.service.handler.SyncExportHandler;
 import org.huge.data.service.trigger.AsyncExportTriggerHelper;
 import org.huge.data.service.trigger.EventBasedTrigger;
