@@ -174,7 +174,6 @@ public class OrcaExportEntryService {
                         dbBatchProcessFunction,
                         queryParams,
                         fileName,
-                        asyncUploadS3,
                         downloadUrlProcessor,
                         manageDownloadUrlParams);
                 // 5. 将任务以异步导出的方式执行 触发异步任务导出处理器

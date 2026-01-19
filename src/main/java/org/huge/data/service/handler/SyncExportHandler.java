@@ -127,7 +127,8 @@ public class SyncExportHandler {
         } catch (Exception e){
             // 说明: 此处不返回false,而是抛出异常,终止整个导出任务,这种一般是代码bug,所以需要持久化,方便开发人员排查,
             // 2.6 如果导出失败,则将任务持久化到数据库中,并标记为失败
-            Long taskId = asyncExportTriggerHelper.persistenceExportTask(dbQueryFunction,
+            Long taskId = asyncExportTriggerHelper.persistenceExportTask(
+                    dbQueryFunction,
                     dbProcessFunction,
                     dbBatchProcessFunction,
                     queryParams,

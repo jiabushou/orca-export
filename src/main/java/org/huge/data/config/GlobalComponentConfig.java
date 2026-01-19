@@ -6,7 +6,6 @@ import org.huge.data.controller.OrcaExportController;
 import org.huge.data.dao.OrcaExportDao;
 import org.huge.data.dao.OrcaExportDaoImpl;
 import org.huge.data.service.OrcaExportEntryService;
-import org.huge.data.service.asynHelper.AsyncUploadS3;
 import org.huge.data.service.handler.SyncExportHandler;
 import org.huge.data.service.trigger.AsyncExportTriggerHelper;
 import org.huge.data.service.trigger.EventBasedTrigger;
@@ -58,7 +57,7 @@ public class GlobalComponentConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-        configurer.setBasePackage("com.ke.utopia.ocra.mapper"); // 设置你的Mapper接口所在的包
+        configurer.setBasePackage("org.huge.data.mapper"); // 设置你的Mapper接口所在的包
         return configurer;
     }
 
