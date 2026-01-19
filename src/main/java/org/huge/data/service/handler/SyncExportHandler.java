@@ -132,6 +132,7 @@ public class SyncExportHandler {
                     dbBatchProcessFunction,
                     queryParams,
                     fileName,
+                    null,
                     downloadUrlProcessor,
                     manageDownloadUrlParams);
             log.error("DBQueryFunction:{},DBProcessFunction:{},同步导出任务执行失败,任务已持久化到数据库中,主键:{}",

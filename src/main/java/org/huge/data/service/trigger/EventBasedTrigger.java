@@ -45,12 +45,9 @@ public class EventBasedTrigger {
         if (Objects.isNull(triggerSourceEnum)){
             throw new OrcaExportException(OrcaExportResultCodeEnum.ERROR_INNER_COMPONENT, "触发异步导出任务管理器失败,触发来源为空");
         }
-        // 如果是事件触发的,则只取一条;如果是时间触发的,则取5条;否则报错
-        int handleCount = triggerSourceEnum.equals(TriggerSourceEnum.EVENT_BASED) ? 1 :
-                triggerSourceEnum.equals(TriggerSourceEnum.TIME_BASED) ? 5 : -1;
-        if (handleCount == -1){
-            throw new OrcaExportException(OrcaExportResultCodeEnum.ERROR_INNER_COMPONENT, "触发异步导出任务管理器失败,触发来源非法" + triggerSourceEnum);
-        }
+        // 固定只取一条数据处理 因为线程池中最多只能运行一个任务
+        int handleCount = 1;
+        log.info("触发异步导出任务管理器,触发来源:{}, handleCount:{}", triggerSourceEnum.getDescription(), handleCount);
 
         List<Long> asyncTaskIdsForHandle = asyncExportTriggerHelper.getAsyncExportTaskForHandle(handleCount);
 
